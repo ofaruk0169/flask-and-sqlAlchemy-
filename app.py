@@ -42,4 +42,38 @@ def sort(movie_list):
                 movie_list[i], movie_list[i+1] = movie_list[i+1], movie_list[i]
     return movie_list
 
+@app.route('/unused_ratings')
+def unused_ratings():
+    five_star = 0
+    four_star = 0
+    three_star = 0
+    two_star = 0
+    one_star = 0
+    output_string = '';
+    movie_list = Movie.query.all()
+    
+    for movie in movie_list:
+        if movie.rating == 1:
+            one_star = one_star + 1;
+        if movie.rating == 2:
+            two_star = two_star + 1;
+        if movie.rating == 3:
+            three_star = three_star + 1;
+        if movie.rating == 4:
+            four_star = four_star + 1;
+        if movie.rating == 5:
+            five_star = five_star + 1;
+    if one_star == 0:
+        output_string = output_string + 'There are no 1 star movies' ;
+    if two_star == 0:
+        output_string = output_string + 'There are no 2 star movies' ;
+    if three_star == 0:
+        output_string = output_string + 'There are no 3 star movies' ;
+    if four_star == 0:
+        output_string = output_string + 'There are no 4 star movies' ;
+    if five_star == 0:
+        output_string = output_string + 'There are no 5 star movies' ;
+        
+    return jsonify(output_string)
+
 
